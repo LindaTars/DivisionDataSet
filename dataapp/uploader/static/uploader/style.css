@@ -107,16 +107,15 @@ pre{
 }
 
 /* Tables: responsive with horizontal scroll */
-.table-box{ overflow-x:auto; }
-
-table{ width:100%; border-collapse:collapse; min-width:640px; }
-table th, table td{
-    padding:8px 10px;
-    border-bottom:1px solid rgba(255,255,255,0.03);
-    text-align:left;
-    color:var(--text);
-    font-size:13px;
+.table-box {
+    margin-top: 18px;  /* ya lo tienes */
+    margin-bottom: 18px; /* añadir esto para separar tablas entre sí */
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+    padding: 14px;
+    border-radius: 10px;
 }
+
 table thead th{
     background: rgba(255,255,255,0.02);
     color:var(--accent);
@@ -127,4 +126,33 @@ table thead th{
 @media (max-width:640px){
     .container{ padding:16px; }
     .btn-upload{ width:100%; text-align:center; }
+}
+
+/* Tablas bonitas y dentro del contenedor */
+.nice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.nice-table th, .nice-table td {
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 8px;
+    text-align: left;
+    color: var(--text);
+}
+
+.nice-table th {
+    background: rgba(14,165,255,0.2);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.table-box {
+    overflow-x: auto;  /* permite scroll horizontal si aun así se excede */
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
 }

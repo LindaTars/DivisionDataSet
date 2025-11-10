@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>📂 Subir y analizar dataset</h1>
+    <h1>Subir y analizar dataset</h1>
 
     <!-- Upload -->
     <form method="POST" enctype="multipart/form-data" class="upload-form">
@@ -21,10 +21,10 @@
         <button type="submit" class="btn-upload">Cargar dataset</button>
     </form>
 
-    <!-- If a dataset has been uploaded, show histogram and split controls -->
+    <!-- Si ya se cargó un dataset -->
     {% if show_split %}
     <div class="table-box">
-        <h2>📊 Histograma automático</h2>
+        <h2>Histograma automático</h2>
         {% if hist_path %}
             <img src="{{ hist_path }}" alt="Histograma" style="max-width:100%; border-radius:8px; display:block;"/>
         {% endif %}
@@ -33,13 +33,6 @@
     <form method="POST" action="{% url 'split' %}" class="upload-form" style="margin-top:14px;">
         {% csrf_token %}
         <div class="options-row">
-            <div class="option">
-                <label>Formato para guardar:</label>
-                <select name="format">
-                    <option value="csv">CSV</option>
-                    <option value="arff">ARFF</option>
-                </select>
-            </div>
             <div class="option">
                 <label><input type="checkbox" name="save_splits"> Guardar splits</label>
             </div>
@@ -59,24 +52,27 @@
             </label>
         </div>
 
-        <label class="checkbox-inline"><input type="checkbox" id="include_val" name="include_val"> Incluir validación (train/val/test)</label>
+        <label class="checkbox-inline">
+            <input type="checkbox" id="include_val" name="include_val"> Incluir validación (train/val/test)
+        </label>
 
         <button type="submit" class="btn-upload">Dividir dataset</button>
     </form>
     {% endif %}
 
-    <!-- Info text -->
-    {% if info %}
-    <div class="info-box">
-        <h2>ℹ️ Info</h2>
-        <pre>{{ info }}</pre>
+    <!-- Info del dataset -->
+    {% if head %}
+    <div class="table-box">
+        <h3>Vista previa del dataset</h3>
+        {{ head|safe }}
     </div>
     {% endif %}
 
-    <!-- After split: show summaries, heatmap, previews, and download buttons -->
+
+    <!-- Resultados de split -->
     {% if splits_info %}
     <div class="info-box">
-        <h2>✅ Resultado de la división</h2>
+        <h2>Resultado de la división</h2>
         <p>Total filas: <strong>{{ splits_info.total_rows }}</strong></p>
         <p>Train: <strong>{{ splits_info.train_rows }}</strong></p>
         {% if splits_info.val_rows %}
@@ -89,7 +85,7 @@
     </div>
 
     <div class="table-box">
-        <h2>🔷 Heatmap (train)</h2>
+        <h2>Heatmap (train)</h2>
         {% if heatmap_path %}
             <img src="{{ heatmap_path }}" alt="Heatmap" style="max-width:100%; border-radius:8px; display:block;"/>
         {% endif %}
@@ -110,11 +106,6 @@
     <div class="table-box">
         <h3>Test — primeras filas</h3>
         {{ test_preview|safe }}
-    </div>
-
-    <div style="display:flex; gap:12px; margin-top:12px;">
-        <a href="{% url 'download_pdf' %}" class="btn-upload" style="text-decoration:none; display:inline-block;">Descargar PDF (reporte)</a>
-        <a href="{% url 'download_excel' %}" class="btn-upload" style="text-decoration:none; display:inline-block;">Descargar Excel</a>
     </div>
     {% endif %}
 </div>
