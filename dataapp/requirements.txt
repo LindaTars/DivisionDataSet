@@ -1,7 +1,6 @@
-Django>=5.2
-pandas
-numpy
-matplotlib
-seaborn
-liac-arff
-scikit-learn
+Django==5.2.8
+pandas==2.3.3
+numpy==2.3.4
+matplotlib==3.10.7
+seaborn==0.13.2
+liac-arff==2.5.0
